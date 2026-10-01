@@ -3,6 +3,20 @@
 
 # FUNZIONI
 
+def chiedi_si_no(domanda):
+    while True:
+        try:
+            risposta = int(input(domanda))
+        except:
+            print("Input non valido. Inserisci 1 oppure 0.")
+            continue
+           
+        if risposta == 1 or risposta == 0:
+            break
+    
+    return risposta
+
+
 def valuta_privacy(dati_personali):
     if dati_personali == 1:
         return "HIGH RISK"
@@ -59,44 +73,59 @@ def calcola_risk_score(dati_personali, decisioni_persone, spiegabilita, supervis
 
 nome_sistema = input("Inserisci il nome del sistema AI: ")
 
-
-dati_personali = int(input("Utilizza dati personali? (1 = sì, 0 = no): "))
+dati_personali = chiedi_si_no("Utilizza dati personali? (1 = sì, 0 = no): ")
 
 privacy_risk = valuta_privacy(dati_personali)
 
-print("PRIVACY RISK:", privacy_risk)
 
-
-decisioni_persone = int(input("Prende decisioni sulle persone? (1 = sì, 0 = no): "))
+decisioni_persone = chiedi_si_no("Prende decisioni sulle persone? (1 = sì, 0 = no): ")
 
 decision_impact = valuta_impatto_persone(decisioni_persone)
 
-print("DECISION IMPACT:", decision_impact)
 
-
-spiegabilita = int(input("Le decisioni sono spiegabili? (1 = sì, 0 = no): "))
+spiegabilita = chiedi_si_no("Le decisioni sono spiegabili? (1 = sì, 0 = no): ")
 
 indice_spiegabilita = valuta_spiegabilita(spiegabilita)
 
-print("EXPLAINABILITY RISK:", indice_spiegabilita)
 
-
-supervisione_umana = int(input("E' presente supervisione umana? (1 = sì, 0 = no): "))
+supervisione_umana = chiedi_si_no("E' presente supervisione umana? (1 = sì, 0 = no): ")
 
 indice_supervisione = human_in_the_loop(supervisione_umana)
-
-print("HUMAN OVERSIGHT RISK: ", indice_supervisione)
 
     
 risk_score = calcola_risk_score(dati_personali, decisioni_persone, spiegabilita, supervisione_umana)
 
 if risk_score <= 1:
-    print("Overall risk: LOW")
+    overall_risk = "LOW"
 
 elif 2 <= risk_score <= 3:
-    print("Overall risk: MEDIUM")
+    overall_risk = "MEDIUM"
 
 elif risk_score == 4:
-    print("Overall risk: HIGH")
+    overall_risk = "HIGH"
+
+#REPORT FINALE
 
 
+print("======================================")
+
+print("AI RISK ASSESSMENT")
+
+print("======================================")
+
+print(f"Sistema AI: {nome_sistema}")
+
+print()
+
+print(f"PRIVACY RISK: {privacy_risk}")
+
+print(f"DECISION IMPACT: {decision_impact}")
+
+print(f"EXPLAINABILITY RISK: {indice_spiegabilita}")
+
+print(f"HUMAN OVERSIGHT RISK: {indice_supervisione}")
+
+print(f"Overall risk: {overall_risk}")
+
+
+print("======================================")
