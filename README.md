@@ -1,126 +1,135 @@
-\# AI Risk Assessment Tool
-
-
+AI Risk Assessment Tool
 
 A simple Python command-line tool for the preliminary assessment of risks associated with an AI system.
 
+Project Purpose
 
+This project is a practical Python project developed around a real-world problem related to AI ethics, risk assessment and AI governance.
 
-\## Project Purpose
+The goal is to build a simple rule-based tool capable of collecting information about an AI system, evaluating selected risk dimensions and producing an overall risk classification.
 
+The project is also intended as a learning and portfolio project to demonstrate the application of basic Python programming concepts to an AI governance-related use case.
 
-
-This project was developed as a practical exercise to apply basic Python programming concepts to a problem related to AI ethics and risk assessment.
-
-
-
-\## How It Works
-
-
+How It Works
 
 The tool collects information about an AI system through a series of questions.
 
-
-
 It evaluates four basic risk dimensions:
 
+Personal data — whether the system uses personal data.
 
+Decision impact — whether the system makes decisions affecting people.
 
-\* \*\*Personal data\*\* — whether the system uses personal data.
+Explainability — whether the system's decisions can be explained.
 
-\* \*\*Decision impact\*\* — whether the system makes decisions affecting people.
-
-\* \*\*Explainability\*\* — whether the system's decisions can be explained.
-
-\* \*\*Human oversight\*\* — whether human supervision is present.
-
-
+Human oversight — whether human supervision is present.
 
 Each risk factor contributes to an overall risk score.
 
-
-
 The final score is classified as:
 
+LOW — 0–1
 
+MEDIUM — 2–3
 
-\* \*\*LOW\*\* — 0–1
+HIGH — 4
 
-\* \*\*MEDIUM\*\* — 2–3
+Current Features
 
-\* \*\*HIGH\*\* — 4
+The current version includes:
 
+Interactive command-line input
 
+Input validation for binary questions (0 / 1)
 
-\## Technologies
+Error handling for invalid non-numeric input
 
+Modular functions
 
+Generic risk evaluation through a reusable valuta_rischio() function
 
-\* Python 3
+Individual risk assessment
 
-\* Command-line interface
+Overall risk score calculation
 
-\* User input
+Final risk assessment report
 
-\* Conditional statements
+Technologies
 
-\* Variables
+Python 3
 
-\* Basic arithmetic
+Command-line interface
 
+Functions
 
+Variables
 
-\## How to Run
+Conditional statements
 
+while loops
 
+try/except error handling
+
+User input
+
+Basic arithmetic
+
+How to Run
 
 Clone the repository and run the program from the command line:
 
-
-
-```bash
-
 python main.py
-
-```
-
-
 
 The program will ask the user a series of questions and generate a preliminary AI risk assessment.
 
-## Example Output
+Example Output
 
-```text
-========================================
-AI RISK ASSESSMENT REPORT
-========================================
+======================================
+AI RISK ASSESSMENT
+======================================
+Sistema AI: Recruitment AI
 
-System: Recruitment AI
-
-Privacy risk: HIGH
-Decision impact: HIGH
-Explainability risk: HIGH
-Human oversight risk: LOW
-
-Risk score: 3/4
+PRIVACY RISK: HIGH RISK
+DECISION IMPACT: HIGH RISK
+EXPLAINABILITY RISK: HIGH RISK
+HUMAN OVERSIGHT RISK: LOW RISK
 Overall risk: MEDIUM
-```
+======================================
 
-## Current Version
+Project Structure
 
-**Version 1.0**
+AI_Risk_Assessment/
+│
+├── main.py
+├── README.md
+└── .gitignore
 
-This first version focuses on fundamental Python programming concepts and a simple rule-based approach to AI risk assessment.
+Current Version
 
-## Future Development
+Version 3
+
+The current version introduces improved input validation, error handling and a more modular approach to risk evaluation.
+
+The risk assessment logic has also been refactored to reduce code duplication through the use of a reusable risk evaluation function.
+
+Future Development
 
 Possible future versions may introduce:
 
-* Functions for a more modular code structure
-* Input validation and error handling
-* Lists and dictionaries for structured data
-* JSON or CSV export
-* A more detailed risk assessment framework
+Additional AI risk dimensions
 
+More structured risk categories
 
+Lists and dictionaries for structured data
 
+JSON or CSV export
+
+Risk assessment reporting improvements
+
+A more detailed AI risk and governance framework
+
+Alignment with relevant AI governance and regulatory concepts
+
+Disclaimer
+
+This tool is a preliminary educational and portfolio project. It does not constitute a legal, regulatory or professional AI risk assessment and should not be used as a substitute for a formal compliance or risk management process.
