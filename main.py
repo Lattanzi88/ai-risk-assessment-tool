@@ -16,41 +16,12 @@ def chiedi_si_no(domanda):
     
     return risposta
 
-
-def valuta_privacy(dati_personali):
-    if dati_personali == 1:
-        return "HIGH RISK"
-    elif dati_personali == 0:
-        return "LOW RISK"
-    else:
-        return "INVALID"
-
-
-def valuta_impatto_persone(decisioni_persone):
-    if decisioni_persone == 1:
-        return "HIGH RISK"
-    elif decisioni_persone == 0:
-        return "LOW RISK"
-    else:
-        return "INVALID"
-        
-
-def valuta_spiegabilita(spiegabilita):
-    if spiegabilita == 1:
-        return "LOW RISK"
-    elif spiegabilita == 0:
+def valuta_rischio(risposta, rischio_alto):
+    if risposta == rischio_alto:
         return "HIGH RISK"
     else:
-        return "INVALID"
-
-
-def human_in_the_loop(supervisione_umana):
-    if supervisione_umana == 1:
         return "LOW RISK"
-    elif supervisione_umana == 0:
-        return "HIGH RISK"
-    else:
-        return "INVALID"
+
 
 def calcola_risk_score(dati_personali, decisioni_persone, spiegabilita, supervisione_umana):
     risk_score = 0
@@ -75,22 +46,20 @@ nome_sistema = input("Inserisci il nome del sistema AI: ")
 
 dati_personali = chiedi_si_no("Utilizza dati personali? (1 = sì, 0 = no): ")
 
-privacy_risk = valuta_privacy(dati_personali)
-
+privacy_risk = valuta_rischio(dati_personali, 1)
 
 decisioni_persone = chiedi_si_no("Prende decisioni sulle persone? (1 = sì, 0 = no): ")
 
-decision_impact = valuta_impatto_persone(decisioni_persone)
-
+decision_impact = valuta_rischio(decisioni_persone, 1)
 
 spiegabilita = chiedi_si_no("Le decisioni sono spiegabili? (1 = sì, 0 = no): ")
 
-indice_spiegabilita = valuta_spiegabilita(spiegabilita)
+indice_spiegabilita = valuta_rischio(spiegabilita, 0)
 
 
 supervisione_umana = chiedi_si_no("E' presente supervisione umana? (1 = sì, 0 = no): ")
 
-indice_supervisione = human_in_the_loop(supervisione_umana)
+indice_supervisione = valuta_rischio(supervisione_umana, 0)
 
     
 risk_score = calcola_risk_score(dati_personali, decisioni_persone, spiegabilita, supervisione_umana)
