@@ -64,17 +64,21 @@ The program will ask the user a series of questions and generate a preliminary A
 
 ## Example Output
 
-======================================
+
 AI RISK ASSESSMENT
-======================================
+------------------
 Sistema AI: Recruitment AI
 
 PRIVACY RISK: HIGH RISK
 DECISION IMPACT: HIGH RISK
 EXPLAINABILITY RISK: HIGH RISK
 HUMAN OVERSIGHT RISK: LOW RISK
+
 Overall risk: MEDIUM
-======================================
+
+-------------------
+-------------------
+
 
 ## Project Structure
 
