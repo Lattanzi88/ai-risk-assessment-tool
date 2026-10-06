@@ -102,6 +102,7 @@ The program will ask the user a series of questions and generate a preliminary A
 
 ## Example Output
 
+```text
 AI RISK ASSESSMENT
 ------------------
 Sistema AI: Recruitment AI
@@ -113,6 +114,10 @@ HUMAN OVERSIGHT RISK: LOW RISK
 
 Overall risk: MEDIUM
 
+```text
+
+```text
+
 ## Project Structure
 
 AI_Risk_Assessment/
@@ -122,6 +127,8 @@ AI_Risk_Assessment/
 |-- .gitignore
 
 ## Current Version
+
+```text
 
 Version 3
 
