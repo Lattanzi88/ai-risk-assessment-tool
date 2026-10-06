@@ -1,14 +1,52 @@
 # AI Risk Assessment Tool
 
-A simple Python command-line tool for the preliminary assessment of risks associated with an AI system.
+A Python-based educational and portfolio project exploring the intersection of AI risk assessment, ethics and governance.
+
+## Professional Context
+
+This project represents a practical step in my transition from an academic background in philosophy and ethics towards AI governance, AI risk management and responsible AI.
+
+My background combines advanced academic training in philosophy and political philosophy with professional experience in education and an ongoing specialization in Artificial Intelligence.
+
+The project reflects an interdisciplinary approach: applying basic programming skills to questions concerning AI ethics, risk management, human oversight, explainability and responsible use of AI systems.
+
+Particular attention is given to the European regulatory framework for Artificial Intelligence, including the risk-based approach of the EU AI Act, as well as to AI management systems and standards such as ISO/IEC 42001.
+
+The objective is not to build a technically sophisticated AI system, but to demonstrate the ability to connect technical implementation with ethical, regulatory and governance requirements.
 
 ## Project Purpose
 
-This project is a practical Python project developed around a real-world problem related to AI ethics, risk assessment and AI governance.
-
-The goal is to build a simple rule-based tool capable of collecting information about an AI system, evaluating selected risk dimensions and producing an overall risk classification.
+The goal of this project is to build a simple rule-based tool capable of collecting information about an AI system, evaluating selected risk dimensions and producing an overall risk classification.
 
 The project is also intended as a learning and portfolio project to demonstrate the application of basic Python programming concepts to an AI governance-related use case.
+
+The current assessment considers four dimensions:
+
+- Personal data
+- Decision impact
+- Explainability
+- Human oversight
+
+These dimensions are not intended to reproduce or determine the legal classification of an AI system under the EU AI Act. Rather, they provide a simplified educational framework for exploring how AI-related risks can be translated into operational assessment criteria.
+
+## AI Governance Perspective
+
+The project is informed by several areas of AI governance:
+
+- AI ethics and responsible AI
+- Risk identification and assessment
+- Human oversight
+- Transparency and explainability
+- Privacy and personal data
+- Regulatory compliance
+- The risk-based approach of the EU AI Act
+- AI management systems and ISO/IEC 42001
+
+The EU AI Act establishes a risk-based regulatory framework for AI and introduces different obligations according to the level and nature of risk associated with AI systems.
+
+ISO/IEC 42001 provides a management-system framework for organizations that develop, provide or use AI systems, supporting the structured management of AI-related risks and opportunities.
+
+This project explores these ideas at a deliberately simplified technical level.
 
 ## How It Works
 
@@ -64,7 +102,6 @@ The program will ask the user a series of questions and generate a preliminary A
 
 ## Example Output
 
-
 AI RISK ASSESSMENT
 ------------------
 Sistema AI: Recruitment AI
@@ -75,10 +112,6 @@ EXPLAINABILITY RISK: HIGH RISK
 HUMAN OVERSIGHT RISK: LOW RISK
 
 Overall risk: MEDIUM
-
--------------------
--------------------
-
 
 ## Project Structure
 
@@ -105,11 +138,30 @@ Possible future versions may introduce:
 - Lists and dictionaries for structured data
 - JSON or CSV export
 - Risk assessment reporting improvements
+- More detailed risk scoring
+- AI system impact assessment
 - A more detailed AI risk and governance framework
-- Alignment with relevant AI governance and regulatory concepts
+- Further alignment with AI governance and regulatory concepts
+
+## Professional Development
+
+This project is part of an ongoing effort to develop practical technical skills alongside an academic and professional background in philosophy, ethics and education.
+
+The broader objective is to develop competencies at the intersection of:
+
+- AI ethics
+- AI risk management
+- AI governance
+- Regulatory compliance
+- AI management systems
+- Technical implementation
+
+Future iterations will progressively expand the technical complexity of the project while maintaining its focus on responsible and risk-aware AI development and deployment.
 
 ## Disclaimer
 
 This tool is a preliminary educational and portfolio project.
 
 It does not constitute a legal, regulatory or professional AI risk assessment and should not be used as a substitute for a formal compliance or risk management process.
+
+The risk categories implemented in this project are simplified educational criteria and do not determine whether an AI system is high-risk, limited-risk or prohibited under the EU AI Act.
