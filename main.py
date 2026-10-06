@@ -23,23 +23,24 @@ def valuta_rischio(risposta, rischio_alto):
         return "LOW RISK"
 
 
-def calcola_risk_score(dati_personali, decisioni_persone, spiegabilita, supervisione_umana):
+def calcola_risk_score(fattori_rischio):
     risk_score = 0
     
-    if dati_personali == 1:
-        risk_score += 1
-    
-    if decisioni_persone == 1:
-        risk_score += 1
-    
-    if spiegabilita == 0:
-        risk_score += 1
-    
-    if supervisione_umana == 0:
-        risk_score += 1
+    for fattore in fattori_rischio.values():
+        if fattore:
+            risk_score += 1
     
     return risk_score
+    
+def valuta_rischio_complessivo(risk_score):
+    if risk_score <= 1:
+        return "LOW"
+    elif risk_score <= 3:
+        return "MEDIUM"
+    else:
+        return "HIGH"
 
+        
 # PROGRAMMA PRINCIPALE 
 
 nome_sistema = input("Inserisci il nome del sistema AI: ")
@@ -61,17 +62,24 @@ supervisione_umana = chiedi_si_no("E' presente supervisione umana? (1 = sì, 0 =
 
 indice_supervisione = valuta_rischio(supervisione_umana, 0)
 
+
+rischi = {
+    "PRIVACY RISK": privacy_risk,
+    "DECISION IMPACT": decision_impact,
+    "EXPLAINABILITY RISK": indice_spiegabilita,
+    "HUMAN OVERSIGHT RISK": indice_supervisione
+}
+
+fattori_rischio = {
+    "Personal data": dati_personali == 1,
+    "Decision impact": decisioni_persone == 1,
+    "Explainability": spiegabilita == 0,
+    "Human oversight": supervisione_umana == 0
+}
     
-risk_score = calcola_risk_score(dati_personali, decisioni_persone, spiegabilita, supervisione_umana)
+risk_score = calcola_risk_score(fattori_rischio)
 
-if risk_score <= 1:
-    overall_risk = "LOW"
-
-elif 2 <= risk_score <= 3:
-    overall_risk = "MEDIUM"
-
-elif risk_score == 4:
-    overall_risk = "HIGH"
+overall_risk = valuta_rischio_complessivo(risk_score)
 
 #REPORT FINALE
 
@@ -86,15 +94,13 @@ print(f"Sistema AI: {nome_sistema}")
 
 print()
 
-print(f"PRIVACY RISK: {privacy_risk}")
+for nome_rischio, valutazione in rischi.items():
+    print(f"{nome_rischio}: {valutazione}")
 
-print(f"DECISION IMPACT: {decision_impact}")
+print("\n")
 
-print(f"EXPLAINABILITY RISK: {indice_spiegabilita}")
-
-print(f"HUMAN OVERSIGHT RISK: {indice_supervisione}")
-
-print(f"Overall risk: {overall_risk}")
+print(f"RISK SCORE: {risk_score}/4")
+print(f"OVERALL RISK: {overall_risk}")
 
 
 print("======================================")
