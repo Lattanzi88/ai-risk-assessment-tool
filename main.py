@@ -1,5 +1,8 @@
+# Il programma chiede all'utente di inserire alcune informazioni sul suo sistema AI,
+# quindi restituisce una valutazione del rischio su singoli parametri
+# (PRIVACY RISK, HUMAN IMPACT, HUMAN OVERSIGHT, EXPLAINABILITY),
+# nonché una valutazione complessiva sul sistema.
 
-# Il programma chiede all'utente di inserire alcune informazioni sul suo sistema AI, quindi restituisce una valutazione del rischio su singoli parametri (PRIVACY RISK,DECISION IMPACT, EXPLAINABILITY RISK, HUMAN OVERSIGHT RISK), nonchè una valutazione complessiva sul sistema. 
 
 # FUNZIONI
 
@@ -10,79 +13,109 @@ def chiedi_si_no(domanda):
         except:
             print("Input non valido. Inserisci 1 oppure 0.")
             continue
-           
+
         if risposta == 1 or risposta == 0:
             break
-    
-    return risposta
 
-def valuta_rischio(risposta, rischio_alto):
-    if risposta == rischio_alto:
-        return "HIGH RISK"
-    else:
-        return "LOW RISK"
+    return risposta
 
 
 def calcola_risk_score(fattori_rischio):
     risk_score = 0
-    
-    for fattore in fattori_rischio.values():
-        if fattore:
+
+    for chiave, valore in fattori_rischio.items():
+        if valore["attivo"]:
             risk_score += 1
-    
+
     return risk_score
-    
+
+
 def valuta_rischio_complessivo(risk_score):
-    if risk_score <= 1:
-        return "LOW"
-    elif risk_score <= 3:
+    if risk_score >= 3:
+        return "HIGH"
+    elif risk_score == 2:
         return "MEDIUM"
     else:
-        return "HIGH"
+        return "LOW"
 
-        
-# PROGRAMMA PRINCIPALE 
+
+def stampa_rischi(fattori_rischio):
+    for chiave, valore in fattori_rischio.items():
+
+        if valore["attivo"]:
+            rischio = "HIGH RISK"
+            descrizione = valore["descrizione_alto"]
+        else:
+            rischio = "LOW RISK"
+            descrizione = valore["descrizione_basso"]
+
+        print(chiave, ":", rischio, "-", valore["categoria"])
+        print(descrizione)
+        print()
+
+
+# PROGRAMMA PRINCIPALE
 
 nome_sistema = input("Inserisci il nome del sistema AI: ")
 
-dati_personali = chiedi_si_no("Utilizza dati personali? (1 = sì, 0 = no): ")
+dati_sensibili = chiedi_si_no(
+    "Il sistema utilizza dati sensibili? (1 = sì, 0 = no): "
+)
 
-privacy_risk = valuta_rischio(dati_personali, 1)
+impatto = chiedi_si_no(
+    "Il sistema ha un impatto diretto sulle persone? (1 = sì, 0 = no): "
+)
 
-decisioni_persone = chiedi_si_no("Prende decisioni sulle persone? (1 = sì, 0 = no): ")
+supervisione = chiedi_si_no(
+    "Il sistema prevede una supervisione umana? (1 = sì, 0 = no): "
+)
 
-decision_impact = valuta_rischio(decisioni_persone, 1)
-
-spiegabilita = chiedi_si_no("Le decisioni sono spiegabili? (1 = sì, 0 = no): ")
-
-indice_spiegabilita = valuta_rischio(spiegabilita, 0)
-
-
-supervisione_umana = chiedi_si_no("E' presente supervisione umana? (1 = sì, 0 = no): ")
-
-indice_supervisione = valuta_rischio(supervisione_umana, 0)
+spiegabilita = chiedi_si_no(
+    "Il sistema è spiegabile? (1 = sì, 0 = no): "
+)
 
 
-rischi = {
-    "PRIVACY RISK": privacy_risk,
-    "DECISION IMPACT": decision_impact,
-    "EXPLAINABILITY RISK": indice_spiegabilita,
-    "HUMAN OVERSIGHT RISK": indice_supervisione
-}
+# STRUTTURA DEI FATTORI DI RISCHIO
 
 fattori_rischio = {
-    "Personal data": dati_personali == 1,
-    "Decision impact": decisioni_persone == 1,
-    "Explainability": spiegabilita == 0,
-    "Human oversight": supervisione_umana == 0
+
+    "Privacy": {
+        "attivo": dati_sensibili == 1,
+        "categoria": "Data Protection",
+        "descrizione_alto": "Il sistema tratta dati personali o sensibili",
+        "descrizione_basso": "Il sistema non tratta dati personali o sensibili"
+    },
+
+    "Human Impact": {
+        "attivo": impatto == 1,
+        "categoria": "Human Impact",
+        "descrizione_alto": "Il sistema prende decisioni che riguardano le persone",
+        "descrizione_basso": "Il sistema non prende decisioni che riguardano direttamente le persone"
+    },
+
+    "Human Oversight": {
+        "attivo": supervisione == 0,
+        "categoria": "Human Oversight",
+        "descrizione_alto": "Non è presente una supervisione umana",
+        "descrizione_basso": "È presente una supervisione umana"
+    },
+
+    "Explainability": {
+        "attivo": spiegabilita == 0,
+        "categoria": "Transparency",
+        "descrizione_alto": "Le decisioni del sistema non sono spiegabili",
+        "descrizione_basso": "Le decisioni del sistema sono spiegabili"
+    }
 }
-    
+
+# VALUTAZIONE DEL RISCHIO
+
 risk_score = calcola_risk_score(fattori_rischio)
 
 overall_risk = valuta_rischio_complessivo(risk_score)
 
-#REPORT FINALE
 
+# REPORT FINALE
 
 print("======================================")
 
@@ -94,13 +127,10 @@ print(f"Sistema AI: {nome_sistema}")
 
 print()
 
-for nome_rischio, valutazione in rischi.items():
-    print(f"{nome_rischio}: {valutazione}")
-
-print("\n")
+stampa_rischi(fattori_rischio)
 
 print(f"RISK SCORE: {risk_score}/4")
-print(f"OVERALL RISK: {overall_risk}")
 
+print(f"OVERALL RISK: {overall_risk}")
 
 print("======================================")
