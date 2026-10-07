@@ -25,15 +25,14 @@ def calcola_risk_score(fattori_rischio):
 
     for chiave, valore in fattori_rischio.items():
         if valore["attivo"]:
-            risk_score += 1
+            risk_score += valore["gravità"]
 
     return risk_score
 
-
 def valuta_rischio_complessivo(risk_score):
-    if risk_score >= 3:
+    if risk_score >= 6:
         return "HIGH"
-    elif risk_score == 2:
+    elif 3 <= risk_score <= 5:
         return "MEDIUM"
     else:
         return "LOW"
@@ -50,6 +49,7 @@ def stampa_rischi(fattori_rischio):
             descrizione = valore["descrizione_basso"]
 
         print(chiave, ":", rischio, "-", valore["categoria"])
+        print("Severity:", valore["gravità"])
         print(descrizione)
         print()
 
@@ -83,28 +83,32 @@ fattori_rischio = {
         "attivo": dati_sensibili == 1,
         "categoria": "Data Protection",
         "descrizione_alto": "Il sistema tratta dati personali o sensibili",
-        "descrizione_basso": "Il sistema non tratta dati personali o sensibili"
+        "descrizione_basso": "Il sistema non tratta dati personali o sensibili",
+        "gravità": 3
     },
 
     "Human Impact": {
         "attivo": impatto == 1,
         "categoria": "Human Impact",
         "descrizione_alto": "Il sistema prende decisioni che riguardano le persone",
-        "descrizione_basso": "Il sistema non prende decisioni che riguardano direttamente le persone"
+        "descrizione_basso": "Il sistema non prende decisioni che riguardano direttamente le persone",
+        "gravità": 2
     },
 
     "Human Oversight": {
         "attivo": supervisione == 0,
         "categoria": "Human Oversight",
         "descrizione_alto": "Non è presente una supervisione umana",
-        "descrizione_basso": "È presente una supervisione umana"
+        "descrizione_basso": "È presente una supervisione umana",
+        "gravità": 2
     },
 
     "Explainability": {
         "attivo": spiegabilita == 0,
         "categoria": "Transparency",
         "descrizione_alto": "Le decisioni del sistema non sono spiegabili",
-        "descrizione_basso": "Le decisioni del sistema sono spiegabili"
+        "descrizione_basso": "Le decisioni del sistema sono spiegabili",
+        "gravità": 1
     }
 }
 
@@ -129,7 +133,7 @@ print()
 
 stampa_rischi(fattori_rischio)
 
-print(f"RISK SCORE: {risk_score}/4")
+print(f"RISK SCORE: {risk_score}/8")
 
 print(f"OVERALL RISK: {overall_risk}")
 
