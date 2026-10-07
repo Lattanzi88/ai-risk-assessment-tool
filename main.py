@@ -3,6 +3,7 @@
 # (PRIVACY RISK, HUMAN IMPACT, HUMAN OVERSIGHT, EXPLAINABILITY),
 # nonché una valutazione complessiva sul sistema.
 
+import json
 
 # FUNZIONI
 
@@ -52,8 +53,24 @@ def stampa_rischi(fattori_rischio):
         print("Severity:", valore["gravità"])
         print(descrizione)
         print()
+        
+def crea_report(nome_sistema, fattori_rischio, risk_score, overall_risk):
+    rischi = {}
+    for chiave, valore in fattori_rischio.items():
+        if valore["attivo"]:
+            rischi[chiave] = "HIGH RISK"
+            
+        else:
+            rischi[chiave] = "LOW RISK"
+            
+    report = {"sistema": nome_sistema,
+              "risk score": risk_score,
+              "overall risk": overall_risk,
+              "rischi": rischi 
+    }
 
-
+    return(report)
+    
 # PROGRAMMA PRINCIPALE
 
 nome_sistema = input("Inserisci il nome del sistema AI: ")
@@ -118,6 +135,18 @@ risk_score = calcola_risk_score(fattori_rischio)
 
 overall_risk = valuta_rischio_complessivo(risk_score)
 
+report = crea_report(
+    nome_sistema,
+    fattori_rischio,
+    risk_score,
+    overall_risk
+)
+
+file = open("assessment_report.json", "w")
+
+json.dump(report, file, indent=4)
+
+file.close()
 
 # REPORT FINALE
 
@@ -138,3 +167,4 @@ print(f"RISK SCORE: {risk_score}/8")
 print(f"OVERALL RISK: {overall_risk}")
 
 print("======================================")
+
