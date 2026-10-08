@@ -26,7 +26,7 @@ def calcola_risk_score(fattori_rischio):
 
     for chiave, valore in fattori_rischio.items():
         if valore["attivo"]:
-            risk_score += valore["gravità"]
+            risk_score += valore["gravita"]
 
     return risk_score
 
@@ -50,26 +50,34 @@ def stampa_rischi(fattori_rischio):
             descrizione = valore["descrizione_basso"]
 
         print(chiave, ":", rischio, "-", valore["categoria"])
-        print("Severity:", valore["gravità"])
+        print("Severity:", valore["gravita"])
         print(descrizione)
         print()
         
 def crea_report(nome_sistema, fattori_rischio, risk_score, overall_risk):
     rischi = {}
+
     for chiave, valore in fattori_rischio.items():
+
         if valore["attivo"]:
-            rischi[chiave] = "HIGH RISK"
-            
+            rischio = "HIGH RISK"
         else:
-            rischi[chiave] = "LOW RISK"
-            
-    report = {"sistema": nome_sistema,
-              "risk score": risk_score,
-              "overall risk": overall_risk,
-              "rischi": rischi 
+            rischio = "LOW RISK"
+
+        rischi[chiave] = {
+            "risk": rischio,
+            "categoria": valore["categoria"],
+            "gravita": valore["gravita"]
+        }
+
+    report = {
+        "sistema": nome_sistema,
+        "risk score": risk_score,
+        "overall risk": overall_risk,
+        "rischi": rischi
     }
 
-    return(report)
+    return report
     
 # PROGRAMMA PRINCIPALE
 
@@ -101,7 +109,7 @@ fattori_rischio = {
         "categoria": "Data Protection",
         "descrizione_alto": "Il sistema tratta dati personali o sensibili",
         "descrizione_basso": "Il sistema non tratta dati personali o sensibili",
-        "gravità": 3
+        "gravita": 3
     },
 
     "Human Impact": {
@@ -109,7 +117,7 @@ fattori_rischio = {
         "categoria": "Human Impact",
         "descrizione_alto": "Il sistema prende decisioni che riguardano le persone",
         "descrizione_basso": "Il sistema non prende decisioni che riguardano direttamente le persone",
-        "gravità": 2
+        "gravita": 2
     },
 
     "Human Oversight": {
@@ -117,7 +125,7 @@ fattori_rischio = {
         "categoria": "Human Oversight",
         "descrizione_alto": "Non è presente una supervisione umana",
         "descrizione_basso": "È presente una supervisione umana",
-        "gravità": 2
+        "gravita": 2
     },
 
     "Explainability": {
@@ -125,7 +133,7 @@ fattori_rischio = {
         "categoria": "Transparency",
         "descrizione_alto": "Le decisioni del sistema non sono spiegabili",
         "descrizione_basso": "Le decisioni del sistema sono spiegabili",
-        "gravità": 1
+        "gravita": 1
     }
 }
 
