@@ -5,18 +5,22 @@
 
 import json
 
+from datetime import datetime
+
 # FUNZIONI
 
 def chiedi_si_no(domanda):
     while True:
         try:
             risposta = int(input(domanda))
-        except:
+        except ValueError:
             print("Input non valido. Inserisci 1 oppure 0.")
             continue
 
         if risposta == 1 or risposta == 0:
             break
+        else:
+            print("Risposta non valida. Inserisci 1 oppure 0.")
 
     return risposta
 
@@ -29,6 +33,24 @@ def calcola_risk_score(fattori_rischio):
             risk_score += valore["gravita"]
 
     return risk_score
+
+def crea_riepilogo(fattori_rischio, risk_score):
+    rischi_attivi = 0
+    for chiave, valore in fattori_rischio.items():
+        if valore["attivo"]:
+            rischi_attivi += 1
+    
+    gravita_totale = risk_score
+
+    rischio_massimo = valuta_rischio_complessivo(gravita_totale)
+
+    riepilogo = {
+        "rischi attivi": rischi_attivi,
+        "gravita totale": gravita_totale,
+        "rischio massimo": rischio_massimo,
+    }
+
+    return riepilogo
 
 def valuta_rischio_complessivo(risk_score):
     if risk_score >= 6:
@@ -54,7 +76,8 @@ def stampa_rischi(fattori_rischio):
         print(descrizione)
         print()
         
-def crea_report(nome_sistema, fattori_rischio, risk_score, overall_risk):
+def crea_report(nome_sistema, fattori_rischio, risk_score, overall_risk, raccomandazione):
+    data_generazione = datetime.now().isoformat(timespec="seconds")
     rischi = {}
 
     for chiave, valore in fattori_rischio.items():
@@ -74,11 +97,21 @@ def crea_report(nome_sistema, fattori_rischio, risk_score, overall_risk):
         "sistema": nome_sistema,
         "risk score": risk_score,
         "overall risk": overall_risk,
-        "rischi": rischi
+        "rischi": rischi,
+        "raccomandazione": raccomandazione,
+        "data generazione": data_generazione,
     }
 
     return report
-    
+
+def genera_raccomandazione(rischio_massimo):
+    if rischio_massimo == "HIGH":
+        return "Revisione approfondita prima dell'utilizzo"
+    elif rischio_massimo == "MEDIUM":
+        return "Definire misure di mitigazione e monitoraggio"
+    else:
+        return "Nessuna revisione approfondita richiesta"
+
 # PROGRAMMA PRINCIPALE
 
 nome_sistema = input("Inserisci il nome del sistema AI: ")
@@ -143,18 +176,20 @@ risk_score = calcola_risk_score(fattori_rischio)
 
 overall_risk = valuta_rischio_complessivo(risk_score)
 
+riepilogo = crea_riepilogo(fattori_rischio, risk_score)
+
+raccomandazione = genera_raccomandazione(riepilogo["rischio massimo"])
+
 report = crea_report(
     nome_sistema,
     fattori_rischio,
     risk_score,
-    overall_risk
+    overall_risk,
+    raccomandazione,
 )
 
-file = open("assessment_report.json", "w")
-
-json.dump(report, file, indent=4)
-
-file.close()
+with open("assessment_report.json", "w", encoding="utf-8") as file:
+    json.dump(report, file, indent=4, ensure_ascii=False)
 
 # REPORT FINALE
 
@@ -173,6 +208,14 @@ stampa_rischi(fattori_rischio)
 print(f"RISK SCORE: {risk_score}/8")
 
 print(f"OVERALL RISK: {overall_risk}")
+
+print("Rischi attivi:", riepilogo["rischi attivi"])
+
+print("Gravità totale:", riepilogo["gravita totale"])
+
+print("Rischio massimo", riepilogo["rischio massimo"])
+
+print("Raccomandazione: ", raccomandazione)
 
 print("======================================")
 

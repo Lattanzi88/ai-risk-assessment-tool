@@ -1,210 +1,197 @@
-AI Risk Assessment Tool
+# AI Risk Assessment Tool
 
 A Python-based educational and portfolio project exploring the intersection of AI risk assessment, ethics and governance.
 
-Professional Context
+## Professional Context
 
 This project represents a practical step in my transition from an academic background in philosophy and ethics towards AI governance, AI risk management and responsible AI.
 
-My background combines advanced academic training in philosophy and political philosophy with professional experience in education and an ongoing specialization in Artificial Intelligence.
+My background combines advanced academic training in philosophy and political philosophy, professional experience in education, and ongoing specialization in Artificial Intelligence.
 
-The project reflects an interdisciplinary approach: applying basic programming skills to questions concerning AI ethics, risk management, human oversight, explainability and responsible use of AI systems.
+The project reflects an interdisciplinary approach: applying programming skills to questions concerning AI ethics, risk identification, human oversight, explainability and responsible use of AI systems.
 
-Particular attention is given to the European regulatory framework for Artificial Intelligence, including the risk-based approach of the EU AI Act, as well as to AI management systems and standards such as ISO/IEC 42001.
+Particular attention is given to the European regulatory framework for Artificial Intelligence, including the risk-based approach of the **EU AI Act**, and to AI management systems such as **ISO/IEC 42001**.
 
-The objective is not to build a technically sophisticated AI system, but to demonstrate the ability to connect technical implementation with ethical, regulatory and governance requirements.
+The objective is to demonstrate the ability to connect basic technical implementation with ethical, regulatory and governance considerations.
 
-Project Purpose
+## Project Purpose
 
-The goal of this project is to build a simple rule-based tool capable of collecting information about an AI system, evaluating selected risk dimensions and producing an overall risk classification.
+The goal is to build a simple, rule-based tool that collects information about an AI system, evaluates selected risk indicators and generates a preliminary risk assessment report.
 
-The project is also intended as a learning and portfolio project to demonstrate the application of basic Python programming concepts to an AI governance-related use case.
+The project also serves as a learning portfolio, demonstrating the application of Python programming concepts to an AI governance-related use case.
 
-The current assessment considers four dimensions:
+## Risk Dimensions
 
-Personal data
+The current prototype evaluates four dimensions:
 
-Decision impact
+- **Privacy:** whether the system processes sensitive data.
+- **Human Impact:** whether the system makes decisions affecting people.
+- **Human Oversight:** whether human supervision is absent.
+- **Explainability:** whether the system's decisions are difficult to explain.
 
-Explainability
+Each dimension has an assigned severity weight. The tool calculates a cumulative score based on the risk indicators activated by the user's answers.
 
-Human oversight
+### Scoring Methodology
 
-These dimensions are not intended to reproduce or determine the legal classification of an AI system under the EU AI Act. Rather, they provide a simplified educational framework for exploring how AI-related risks can be translated into operational assessment criteria.
+The current prototype uses the following weights:
 
-AI Governance Perspective
+| Risk dimension | Weight |
+|---|---:|
+| Privacy | 3 |
+| Human Impact | 2 |
+| Human Oversight | 2 |
+| Explainability | 1 |
 
-The project is informed by several areas of AI governance:
+The maximum possible score is 8.
 
-AI ethics and responsible AI
+The overall score is classified according to these project-defined thresholds:
 
-Risk identification and assessment
+- **LOW:** 0–2
+- **MEDIUM:** 3–5
+- **HIGH:** 6–8
 
-Human oversight
+These weights and thresholds are heuristic design choices created for educational purposes. They are not official EU AI Act risk categories or regulatory thresholds.
 
-Transparency and explainability
+## How It Works
 
-Privacy and personal data
+1. The user enters the name of the AI system.
+2. The program collects four binary answers (`1` or `0`).
+3. The answers are converted into risk indicators.
+4. The program calculates the cumulative risk score.
+5. The overall score determines a preliminary risk level.
+6. A recommendation is generated according to the overall level.
+7. A structured report is saved as `assessment_report.json`, including the system name, risk indicators, score, recommendation and generation timestamp.
 
-Regulatory compliance
+The tool also displays the assessment results in the command line.
 
-The risk-based approach of the EU AI Act
+## Current Features
 
-AI management systems and ISO/IEC 42001
+- Interactive command-line interface
+- Input validation for binary questions
+- Error handling for invalid input
+- Modular functions
+- Dictionary-based representation of risk factors
+- Weighted risk score calculation
+- Overall risk classification
+- Risk summary and preliminary recommendations
+- JSON report generation
+- Timestamped assessment reports
 
-The EU AI Act establishes a risk-based regulatory framework for AI and introduces different obligations according to the level and nature of risk associated with AI systems.
+## Technologies and Concepts
 
-ISO/IEC 42001 provides a management-system framework for organizations that develop, provide or use AI systems, supporting the structured management of AI-related risks and opportunities.
+- Python 3
+- Variables and data types
+- Dictionaries and nested data structures
+- Functions and parameters
+- Conditional statements
+- `while` loops
+- `try/except` error handling
+- File handling
+- JSON serialization
+- Basic arithmetic and rule-based logic
 
-This project explores these ideas at a deliberately simplified technical level.
+## How to Run
 
-How It Works
+Make sure Python 3 is installed, then run the program from the project directory:
 
-The tool collects information about an AI system through a series of questions.
-
-It evaluates four basic risk dimensions:
-
-Personal data - whether the system uses personal data.
-
-Decision impact - whether the system makes decisions affecting people.
-
-Explainability - whether the system's decisions can be explained.
-
-Human oversight - whether human supervision is present.
-
-Each risk factor contributes to an overall risk score.
-
-The final score is classified as:
-
-LOW - 0 to 1
-
-MEDIUM - 2 to 3
-
-HIGH - 4
-
-Current Features
-
-The current version includes:
-
-Interactive command-line input
-
-Input validation for binary questions (0 / 1)
-
-Error handling for invalid non-numeric input
-
-Modular functions
-
-Generic risk evaluation through a reusable valuta_rischio() function
-
-Individual risk assessment
-
-Overall risk score calculation
-
-Final risk assessment report
-
-Technologies
-
-Python 3
-
-Command-line interface
-
-Functions
-
-Variables
-
-Conditional statements
-
-while loops
-
-try/except error handling
-
-User input
-
-Basic arithmetic
-
-How to Run
-
-Clone the repository and run the program from the command line:
-
+```bash
 python main.py
+```
 
-The program will ask the user a series of questions and generate a preliminary AI risk assessment.
+Follow the prompts and enter `1` for yes or `0` for no.
 
-Example Output
+The program displays the results and generates or updates `assessment_report.json` in the current working directory.
 
+## Example Output
+
+For a test system named `Matrix`, with sensitive data processing and human impact enabled, and with human supervision and explainability present:
+
+```text
 AI RISK ASSESSMENT
 
-Sistema AI: Recruitment AI
+Sistema AI: Matrix
 
-PRIVACY RISK: HIGH RISK
-DECISION IMPACT: HIGH RISK
-EXPLAINABILITY RISK: HIGH RISK
-HUMAN OVERSIGHT RISK: LOW RISK
+Privacy : HIGH RISK - Data Protection
+Human Impact : HIGH RISK - Human Impact
+Human Oversight : LOW RISK - Human Oversight
+Explainability : LOW RISK - Transparency
 
-Overall risk: MEDIUM
+RISK SCORE: 5/8
+OVERALL RISK: MEDIUM
+Rischi attivi: 2
+Gravità totale: 5
+Rischio massimo MEDIUM
 
-Project Structure
+Raccomandazione:
+Definire misure di mitigazione e monitoraggio
+```
 
-AI_Risk_Assessment/
-|
-|-- main.py
-|-- README.md
-|-- .gitignore
+*Note: the current command-line output contains some Italian labels and descriptions.*
 
-Current Version
+## AI Governance Perspective
 
-Version 3
+The project explores concepts related to:
 
-The current version introduces improved input validation, error handling and a more modular approach to risk evaluation.
+- AI ethics and responsible AI
+- Risk identification and assessment
+- Human oversight
+- Transparency and explainability
+- Data protection
+- Regulatory compliance
+- AI management systems
 
-The risk assessment logic has also been refactored to reduce code duplication through the use of a reusable valuta_rischio() function.
+The EU AI Act establishes a risk-based regulatory framework with obligations that depend on the type of AI system and its intended use.
 
-Future Development
+ISO/IEC 42001 provides requirements for an AI management system, supporting organizations in establishing and continually improving processes for the responsible management of AI systems.
 
-Possible future versions may introduce:
+This project uses these areas as conceptual reference points. It does not implement the complete requirements of either framework.
 
-Additional AI risk dimensions
+## Project Structure
 
-More structured risk categories
+```text
+ai-risk-assessment-tool/
+├── main.py
+├── README.md
+├── .gitignore
+└── assessment_report.json  # Generated when the program runs
+```
 
-Lists and dictionaries for structured data
+The JSON report is a generated output and does not necessarily need to be committed to the repository.
 
-JSON or CSV export
+## Limitations
 
-Risk assessment reporting improvements
+This prototype uses a simplified, deterministic scoring model based on four binary indicators and manually assigned weights.
 
-More detailed risk scoring
+It does not currently assess the full context, intended purpose, deployment conditions, affected populations or all applicable legal obligations of an AI system.
 
-AI system impact assessment
+The model's overall score should be interpreted as an internal educational indicator, not as a validated measure of actual risk.
 
-A more detailed AI risk and governance framework
+In particular, the output does not determine whether a system is prohibited, high-risk or subject to specific obligations under the EU AI Act.
 
-Further alignment with AI governance and regulatory concepts
+## Future Development
 
-Professional Development
+Possible improvements include:
+
+- Refining the assessment methodology and documenting the rationale for each weight
+- Distinguishing risk indicators from risk severity classifications
+- Adding more contextual assessment questions
+- Improving report readability and traceability
+- Introducing structured risk mitigation measures
+- Developing test cases for input validation and scoring logic
+- Exploring how the assessment could support, but not replace, an AI management system aligned with ISO/IEC 42001
+
+## Professional Development
 
 This project is part of an ongoing effort to develop practical technical skills alongside an academic and professional background in philosophy, ethics and education.
 
-The broader objective is to develop competencies at the intersection of:
+Its broader objective is to build competencies at the intersection of AI ethics, AI risk management, AI governance, regulatory compliance and technical implementation.
 
-AI ethics
+The project will evolve progressively, with an emphasis on methodological transparency, responsible use of AI and the ability to explain both the rationale and limitations of an assessment tool.
 
-AI risk management
-
-AI governance
-
-Regulatory compliance
-
-AI management systems
-
-Technical implementation
-
-Future iterations will progressively expand the technical complexity of the project while maintaining its focus on responsible and risk-aware AI development and deployment.
-
-Disclaimer
+## Disclaimer
 
 This tool is a preliminary educational and portfolio project.
 
-It does not constitute a legal, regulatory or professional AI risk assessment and should not be used as a substitute for a formal compliance or risk management process.
+It does not constitute legal advice, a formal regulatory assessment, a certified risk assessment or evidence of compliance with the EU AI Act or ISO/IEC 42001.
 
-The risk categories implemented in this project are simplified educational criteria and do not determine whether an AI system is high-risk, limited-risk or prohibited under the EU AI Act.
+The risk indicators, weights and thresholds are simplified design choices intended to demonstrate basic programming and risk assessment concepts. They should not be used as a substitute for a formal, context-specific risk management or compliance process.
